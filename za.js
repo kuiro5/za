@@ -1,4 +1,4 @@
-export const post = async ({ url, headers = '', data = {} }) => {
+const post = async ({ url, headers = '', data = {} }) => {
   return new Promise((resolve, reject) => {
     fetch(url, {
       method: 'POST',
@@ -13,7 +13,7 @@ export const post = async ({ url, headers = '', data = {} }) => {
   });
 }
 
-export const put = async ({ url, headers = '', data = {} }) => {
+const put = async ({ url, headers = '', data = {} }) => {
   return new Promise((resolve, reject) => {
     fetch(url, {
       method: 'PUT',
@@ -28,7 +28,7 @@ export const put = async ({ url, headers = '', data = {} }) => {
   });
 }
 
-export const get = async ({ url, headers = '' }) => {
+const get = async ({ url, headers = '' }) => {
   return new Promise((resolve, reject) => {
     fetch(url, {
       method: 'GET',
@@ -42,7 +42,7 @@ export const get = async ({ url, headers = '' }) => {
   });
 }
 
-export const destroy = async ({ url, headers ='' }) => {
+const destroy = async ({ url, headers ='' }) => {
   return new Promise((resolve, reject) => {
     fetch(url, {
       method: 'DELETE',
@@ -55,3 +55,6 @@ export const destroy = async ({ url, headers ='' }) => {
     })
   });
 }
+
+export default { get, put, post, destroy };
+
