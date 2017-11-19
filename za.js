@@ -1,8 +1,10 @@
+const MIN_ERROR_CODE = 400;
+
 const responseHandler = (response) => {
   const { status } = response;
   const parsedResponse = response.json();
 
-  if (status >= 400 && status < 600) {
+  if (status >= MIN_ERROR_CODE) {
     return Promise.reject(status, parsedResponse);
   }
   return parsedResponse;
