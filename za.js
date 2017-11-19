@@ -1,52 +1,40 @@
-const post = async ({ url, headers = '', data = {} }) => {
+const responseHandler = (response) => {
+  const { status } = response;
+  const parsedResponse = response.json();
+
+  if (status >= 400 && status < 600) {
+    return Promise.reject(status, parsedResponse);
+  }
+  return parsedResponse;
+};
+
+export const post = ({ url, headers = '', data = {} }) => {
   return fetch(url, {
     method: 'POST',
     body: JSON.stringify(data),
     headers
-  }).then((response) => {
-    if (response.status >= 400 && response.status < 600) {
-      return Promise.reject(response.status, response.json());
-    }
-    return Promise.resolve(response.json());
-  })
-}
+  }).then(responseHandler);
+};
 
-const put = async ({ url, headers = '', data = {} }) => {
+export const put = ({ url, headers = '', data = {} }) => {
   return fetch(url, {
     method: 'PUT',
     body: JSON.stringify(data),
     headers
-  }).then((response) => {
-    if (response.status >= 400 && response.status < 600) {
-      return Promise.reject(response.status, response.json());
-    }
-    return Promise.resolve(response.json());
-  })
-}
+  }).then(responseHandler);
+};
 
-const get = async ({ url, headers = '' }) => {
+export const get = ({ url, headers = '' }) => {
   return fetch(url, {
     method: 'GET',
     headers,
-  }).then((response) => {
-    if (response.status >= 400 && response.status < 600) {
-      return Promise.reject(response.status, response.json());
-    }
-    return Promise.resolve(response.json());
-  })
-}
+  }).then(responseHandler);
+};
 
-const destroy = async ({ url, headers ='' }) => {
+export const destroy = ({ url, headers ='' }) => {
   return fetch(url, {
     method: 'DELETE',
     headers,
-  }).then((response) => {
-    if (response.status >= 400 && response.status < 600) {
-      return Promise.reject(response.status, response.json());
-    }
-    return Promise.resolve(response.json());
-  })
+  }).then(responseHandler);
 }
-
-export default { get, put, post, destroy };
 
